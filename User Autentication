@@ -1,0 +1,39 @@
+import requests
+
+def login(username, password):
+    """
+    Realiza una autenticación de usuario en GitHub.
+
+    Args:
+        username: El nombre de usuario del usuario.
+        password: La contraseña del usuario.
+
+    Returns:
+        Un objeto `requests.Response` con el resultado de la autenticación.
+    """
+
+    url = "https://api.github.com/user"
+    headers = {
+        "Accept": "application/vnd.github.v3+json",
+    }
+    data = {
+        "login": username,
+        "password": password,
+    }
+
+    response = requests.post(url, headers=headers, data=data)
+    return response
+
+
+if __name__ == "__main__":
+    username = "your_username"
+    password = "your_password"
+
+    response = login(username, password)
+
+    if response.status_code == 200:
+        # La autenticación fue exitosa.
+        print("Autenticación exitosa.")
+    else:
+        # La autenticación falló.
+        print("Autenticación fallida.")
